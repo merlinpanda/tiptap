@@ -1,0 +1,35 @@
+{
+  "name": "@stument/tiptap-mention",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "stument",
+    "tiptap",
+    "tiptap extension"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "umd": "dist/index.umd.js",
+  "types": "dist/packages/tiptap-mention/src/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && rollup -c"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/packages/tiptap-mention/src/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "dependencies": {
+    "@tiptap/core": "^2.1.10",
+    "@tiptap/extension-mention": "^2.1.10",
+    "@tiptap/pm": "^2.1.10"
+  }
+}

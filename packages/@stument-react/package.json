@@ -1,0 +1,46 @@
+{
+  "name": "@stument/react",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && rollup -c"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "umd": "dist/index.umd.js",
+  "types": "dist/packages/@stument-react/src/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/packages/@stument-react/src/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "dependencies": {
+    "@mantine/carousel": "^7.0.0",
+    "@mantine/code-highlight": "^7.0.0",
+    "@mantine/core": "^7.0.0",
+    "@mantine/dates": "^7.0.0",
+    "@mantine/dropzone": "^7.0.0",
+    "@mantine/form": "^7.0.0",
+    "@mantine/hooks": "^7.0.0",
+    "@mantine/modals": "^7.0.0",
+    "@mantine/notifications": "^7.0.0",
+    "@mantine/nprogress": "^7.0.0",
+    "@mantine/spotlight": "^7.0.0",
+    "@mantine/tiptap": "^7.0.0",
+    "@stument/extension-mention": "^1.0.0",
+    "@tabler/icons-react": "^2.34.0",
+    "@tiptap/extension-link": "^2.1.10",
+    "@tiptap/react": "^2.1.10",
+    "@tiptap/starter-kit": "^2.1.10",
+    "dayjs": "^1.11.10",
+    "embla-carousel-react": "^8.0.0-rc14"
+  }
+}

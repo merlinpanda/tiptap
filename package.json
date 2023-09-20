@@ -7,7 +7,7 @@
   "scripts": {
     "commit": "git-cz",
     "build": "lerna run build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint .",
     "prepare": "husky install"
   },
   "workspaces": [

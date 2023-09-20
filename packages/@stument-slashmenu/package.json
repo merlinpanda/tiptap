@@ -1,0 +1,43 @@
+{
+  "name": "@stument/extension-slashmenu",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "stument",
+    "stument slashmenu",
+    "tiptap",
+    "tiptap extension"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "umd": "dist/index.umd.js",
+  "types": "dist/packages/@stument-slashmenu/src/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && rollup -c"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/packages/@stument-slashmenu/src/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "dependencies": {
+    "@tiptap/core": "^2.1.10",
+    "@tiptap/extension-mention": "^2.1.10",
+    "@tiptap/pm": "^2.1.10",
+    "@tiptap/react": "^2.1.10",
+    "@tiptap/suggestion": "^2.1.10"
+  },
+  "peerDependencies": {
+    "@tiptap/core": "^2.0.0",
+    "@tiptap/pm": "^2.0.0",
+    "@tiptap/suggestion": "^2.0.0"
+  }
+}

@@ -7,7 +7,7 @@ import { ReactNodeViewRenderer } from "@tiptap/react";
 import React from "react";
 
 export type StumentMentionOptions = MentionOptions & {
-  nodeView?: React.FC<any>;
+  nodeView?: React.FC<unknown>;
 };
 
 const StumentMention = Mention.extend<StumentMentionOptions>({

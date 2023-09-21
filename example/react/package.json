@@ -27,6 +27,7 @@
     "@stument/react": "^1.0.0",
     "@tabler/icons-react": "^2.34.0",
     "@tiptap/extension-link": "^2.1.11",
+    "@tiptap/extension-placeholder": "^2.1.11",
     "@tiptap/react": "^2.1.11",
     "@tiptap/starter-kit": "^2.1.11",
     "dayjs": "^1.11.10",

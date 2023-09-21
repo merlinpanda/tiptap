@@ -5,15 +5,11 @@ import resolve from "@rollup/plugin-node-resolve";
 import autoExternal from "rollup-plugin-auto-external";
 import sourcemaps from "rollup-plugin-sourcemaps";
 import typescript from "rollup-plugin-typescript2";
-import scss from "rollup-plugin-scss";
-import postcss from "rollup-plugin-postcss";
-import autoprefixer from "autoprefixer";
-import cssnano from "cssnano";
+import json from "@rollup/plugin-json";
 
 import pkg from "./package.json";
 
 export default {
-  external: [/@mantine\/.*/, /@tabler\/.*/, /@tiptap\/.*/, "react"],
   input: "src/index.ts",
   output: [
     {
@@ -40,6 +36,7 @@ export default {
     autoExternal({
       packagePath: "./package.json",
     }),
+    json(),
     sourcemaps(),
     resolve(),
     commonjs(),
@@ -59,14 +56,6 @@ export default {
         },
         include: null,
       },
-    }),
-    postcss({
-      plugins: [autoprefixer(), cssnano()],
-      extract: "css/index.css",
-    }),
-    scss({
-      include: ["scss/**/*.css", "scss/**/*.scss", "scss/**/*.sass"],
-      failOnError: true,
     }),
   ],
 };

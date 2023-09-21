@@ -6,7 +6,7 @@ import {
   IconFileFilled,
   IconHash,
 } from "@tabler/icons-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { forwardRef, useImperativeHandle, useState } from "react";
 
 export type MentionItemTypes =
@@ -24,7 +24,6 @@ export interface MentionItem {
   image?: string;
   icon?: string | React.FC;
   description?: string;
-  onClick?: () => void;
 }
 
 export interface CategoryMentionItem {
@@ -37,29 +36,41 @@ export interface MentionListProps {
   command: (item: MentionItem) => void;
 }
 
-const MentionList = forwardRef(
+const MentionListRef = forwardRef(
   ({ categories, command }: MentionListProps, ref) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const indexItems = new Map<string, MentionItem>();
-    const indexes: string[] = [];
+    const [indexItems, setIndexItems] = useState<Map<string, MentionItem>>(
+      new Map()
+    );
+    const [indexes, setIndexes] = useState<string[]>([]);
 
-    // useEffect(() => {
-    //   categories.forEach((category) => {
-    //     const items = category.items;
-    //     items.forEach((item) => {
-    //       const key = getItemkey(item.category, item.code);
-    //       indexes.push(key);
-    //       indexItems.set(key, item);
-    //     });
-    //   });
+    const updateMap = (key: string, value: MentionItem) => {
+      setIndexItems((map) => new Map(map.set(key, value)));
+    };
 
-    //   setSelectedIndex(0);
+    const updateIndexes = (value: string) => {
+      setIndexes((map) => [value, ...map]);
+    };
 
-    //   return () => {
-    //     indexItems = new Map<string, MentionItem>();
-    //     indexes = [];
-    //   };
-    // }, [categories]);
+    const clearMap = () => {
+      setIndexItems(new Map());
+    };
+
+    useEffect(() => {
+      clearMap();
+      setIndexes([]);
+
+      categories &&
+        categories.forEach((category) => {
+          const items = category.items;
+          items.forEach((item) => {
+            const key = getItemkey(item.category, item.code);
+            updateIndexes(key);
+            updateMap(key, item);
+          });
+        });
+      setSelectedIndex(0);
+    }, [categories]);
 
     const selectItem = (key: string) => {
       const item = indexItems.get(key);
@@ -94,7 +105,16 @@ const MentionList = forwardRef(
               items.map((item, index) => {
                 const key = getItemkey(category, item.code);
                 return (
-                  <Item {...item} key={index} onClick={() => selectItem(key)} />
+                  <Item
+                    item={item}
+                    key={index}
+                    custonClassName={
+                      indexes.indexOf(key) === selectedIndex
+                        ? "slash-menu-item slash-menu-item-active"
+                        : "slash-menu-item"
+                    }
+                    onClick={() => selectItem(key)}
+                  />
                 );
               })}
           </Box>
@@ -102,32 +122,39 @@ const MentionList = forwardRef(
       );
     };
 
-    const Item = (item: MentionItem) => {
+    const Item = ({
+      item,
+      custonClassName,
+    }: {
+      item: MentionItem;
+      custonClassName: string;
+      onClick: () => void;
+    }) => {
       return (
-        <UnstyledButton>
-          <Group>
+        <UnstyledButton className={custonClassName}>
+          <Group gap="xs">
             {item.category === "article" && (
-              <ThemeIcon>
+              <ThemeIcon color="slate" variant="light">
                 <IconFileFilled size="1rem" />
               </ThemeIcon>
             )}
             {item.category === "document" && (
-              <ThemeIcon>
+              <ThemeIcon color="slate" variant="light">
                 <IconBookFilled size="1rem" />
               </ThemeIcon>
             )}
             {item.category === "kcard" && (
-              <ThemeIcon>
+              <ThemeIcon color="slate" variant="light">
                 <IconCircleDotFilled size="1rem" />
               </ThemeIcon>
             )}
             {item.category === "tag" && (
-              <ThemeIcon>
+              <ThemeIcon color="slate" variant="light">
                 <IconHash size="1rem" />
               </ThemeIcon>
             )}
             {item.category === "toturial" && (
-              <ThemeIcon>
+              <ThemeIcon color="slate" variant="light">
                 <IconBook2 size="1rem" />
               </ThemeIcon>
             )}
@@ -163,7 +190,7 @@ const MentionList = forwardRef(
 
     return (
       <div className="items">
-        {categories.length ? (
+        {categories?.length ? (
           categories.map((category, index) => {
             return <ListRender {...category} key={index} />;
           })
@@ -175,6 +202,6 @@ const MentionList = forwardRef(
   }
 );
 
-MentionList.displayName = "MentionList";
+MentionListRef.displayName = "MentionListRef";
 
-export default MentionList;
+export default MentionListRef;

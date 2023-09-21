@@ -44,9 +44,13 @@
     "@tiptap/starter-kit": "^2.1.10",
     "@tiptap/suggestion": "^2.1.11",
     "dayjs": "^1.11.10",
-    "embla-carousel-react": "^8.0.0-rc14"
+    "embla-carousel-react": "^8.0.0-rc14",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.16",
     "cssnano": "^6.0.1",
     "rollup-plugin-postcss": "^4.0.2",

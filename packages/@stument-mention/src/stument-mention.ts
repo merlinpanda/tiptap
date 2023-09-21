@@ -6,7 +6,8 @@ import Suggestion from "@tiptap/suggestion";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 
 export type StumentMentionOptions = MentionOptions & {
-  nodeView?: React.FC<unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  nodeView?: any;
 };
 
 const StumentMention = Mention.extend<StumentMentionOptions>({

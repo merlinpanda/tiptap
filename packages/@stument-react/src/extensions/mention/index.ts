@@ -1,10 +1,27 @@
-import { SuggestionMenus } from "./menu";
+import { userSuggestions } from "./menu";
 import { SuggestionOptions } from "@tiptap/suggestion";
-import SlashMenuRender from "./render";
+import StumentMentionRender from "./render";
 
-type SlashMenuSuggestionType = Pick<SuggestionOptions, "items" | "render">;
+type MentionSuggestionType = Omit<SuggestionOptions, "editor">;
 
-export const SlashMenuSuggestion: SlashMenuSuggestionType = {
-  items: () => [...SuggestionMenus],
-  render: SlashMenuRender,
+export const MentionSuggestion: MentionSuggestionType = {
+  items: ({ query }: { query: string }) => {
+    const users = userSuggestions();
+
+    const suggestUsers = users
+      .filter((user) => {
+        return (
+          !query || user.label.toLowerCase().startsWith(query.toLowerCase())
+        );
+      })
+      .slice(0, 5);
+
+    return [
+      {
+        category: "user",
+        items: suggestUsers,
+      },
+    ];
+  },
+  render: StumentMentionRender,
 };

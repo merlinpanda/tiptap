@@ -1,0 +1,40 @@
+{
+  "name": "@stument/extension-sidemenu",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && rollup -c",
+    "dev": "npm run clean && rollup -c -w"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "umd": "dist/index.umd.js",
+  "types": "dist/packages/@stument-sidemenu/src/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/packages/@stument-sidemenu/src/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "devDependencies": {
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-json": "^6.0.0",
+    "@tiptap/core": "^2.0.0-beta.220",
+    "@tiptap/pm": "^2.0.0-beta.220"
+  },
+  "peerDependencies": {
+    "@tiptap/core": "^2.0.0-beta.220",
+    "@tiptap/pm": "^2.0.0-beta.220"
+  },
+  "dependencies": {
+    "@tiptap/extension-floating-menu": "^2.1.11"
+  }
+}

@@ -4,7 +4,6 @@ import Suggestion, { SuggestionOptions } from "@tiptap/suggestion";
 import { Mention } from "@tiptap/extension-mention";
 
 export interface StumentSlashMenu {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   HTMLAttributes: Record<string, any>;
   suggestion: Omit<SuggestionOptions, "editor">;
 }

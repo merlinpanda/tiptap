@@ -21,6 +21,13 @@
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "files": ["./env.d.ts"],
-  "include": ["**/*.d.ts", "**/*.ts", "**/*.tsx", "**/*.vue"],
+  "include": [
+    "**/*.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.vue",
+    "commitlint.config.js",
+    "postcss.config.js"
+  ],
   "exclude": ["**/node_modules", "**/dist"]
 }

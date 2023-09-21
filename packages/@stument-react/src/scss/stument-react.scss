@@ -7,6 +7,24 @@
   color: var(--mantine-color-gray-5);
 }
 
+.hover-card-badge {
+  font-size: var(--mantine-font-size-sm);
+  border: 1px solid var(--mantine-color-slate-3);
+  color: var(--mantine-color-slate-5);
+  cursor: pointer;
+}
+
+.empty-node-placeholder::before {
+  color: var(--mantine-color-slate-3);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
 .slash-menu-box {
   padding: 4px;
   border-radius: var(--mantine-radius-sm);

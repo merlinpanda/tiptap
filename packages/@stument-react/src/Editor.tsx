@@ -11,7 +11,7 @@ export const Editor = ({ editor }: EditorProps) => {
   return (
     <>
       <MantineProvider theme={theme}>
-        <EditorContent editor={editor} />
+        <EditorContent editor={editor} autoFocus />
       </MantineProvider>
     </>
   );

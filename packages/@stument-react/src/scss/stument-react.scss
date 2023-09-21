@@ -1,19 +1,32 @@
+.ProseMirror {
+  outline: none;
+}
+
+.font-mini-slate {
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-gray-5);
+}
+
 .slash-menu-box {
-  padding: var(--mantine-spacing-xs);
+  padding: 4px;
   border-radius: var(--mantine-radius-sm);
   box-shadow: var(--mantine-shadow-lg);
   border: 1px solid var(--mantine-color-slate-light);
   background-color: var(--mantine-color-white);
+  max-height: 500px;
+  overflow-y: scroll;
 
   .slash-menu-item {
     padding: var(--mantine-spacing-xs);
     border-radius: var(--mantine-radius-sm);
+    color: var(--mantine-color-slate-light-color);
     display: block;
     width: 100%;
+  }
 
-    &:hover {
-      background: var(--mantine-color-slate-light);
-      color: var(--mantine-color-slate-light-color);
-    }
+  .slash-menu-item:hover,
+  .slash-menu-item-active {
+    background: var(--mantine-color-slate-light);
+    color: var(--mantine-color-slate-8);
   }
 }

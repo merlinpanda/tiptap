@@ -3,7 +3,7 @@ import { useEditor } from "@tiptap/react";
 import StumentSlashMenu from "@stument/extension-slashmenu";
 // import StumentMention from '@stument/extension-mention';
 import StarterKit from "@tiptap/starter-kit";
-import { MantineProvider, Button } from "@mantine/core";
+import { MantineProvider, Box } from "@mantine/core";
 
 export default function App() {
   const editor = useEditor({
@@ -25,8 +25,9 @@ export default function App() {
     <>
       <div className="a">
         <MantineProvider>
-          <Button>aaa</Button>
-          <Editor editor={editor} />
+          <Box p="sm">
+            <Editor editor={editor} />
+          </Box>
         </MantineProvider>
       </div>
     </>

@@ -65,15 +65,23 @@ export const SlashMenuRef = forwardRef((props: ISlashMenuRefProps, ref) => {
             <UnstyledButton
               key={index}
               onClick={() => selectItem(index)}
-              className="slash-menu-item"
+              className={
+                selectedIndex === index
+                  ? "slash-menu-item slash-menu-item-active"
+                  : "slash-menu-item"
+              }
             >
-              <Group>
-                <ThemeIcon>{React.createElement(item.icon)}</ThemeIcon>
+              <Group gap="xs">
+                <ThemeIcon color="slate" variant="light">
+                  {React.createElement(item.icon)}
+                </ThemeIcon>
                 <Stack gap={0}>
-                  <Box size="sm" fw={700}>
+                  <Text size="sm" fw={500}>
                     {item.title}
-                  </Box>
-                  <Text size="xs">{item.description}</Text>
+                  </Text>
+                  <Text size="xs" className="font-mini-slate">
+                    {item.description}
+                  </Text>
                 </Stack>
               </Group>
             </UnstyledButton>

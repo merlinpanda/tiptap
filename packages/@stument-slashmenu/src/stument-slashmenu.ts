@@ -1,46 +1,23 @@
-import { Mention } from "@tiptap/extension-mention";
 import { PluginKey } from "@tiptap/pm/state";
-import { mergeAttributes } from "@tiptap/core";
-import Suggestion from "@tiptap/suggestion";
+import Suggestion, { SuggestionOptions } from "@tiptap/suggestion";
+import { Node } from "@tiptap/core";
 
-const StumentSlashmenu = Mention.extend({
-  name: "stument-slashmenu",
+export interface StumentSlashMenu {
+  HTMLAttributes: Record<string, any>;
+  suggestion: Omit<SuggestionOptions, "editor">;
+}
+
+const StumentSlashMenu = Node.create<StumentSlashMenu>({
+  name: "slash-menu",
 
   addOptions() {
     return {
       HTMLAttributes: {},
-      renderLabel: () => {
-        return ``;
-      },
       suggestion: {
         char: "/",
-        pluginKey: new PluginKey("stument-slashmenu"),
+        pluginKey: new PluginKey("slash-menu"),
         command: ({ editor, range, props }) => {
-          // increase range.to by one when the next node is of type "text"
-          // and starts with a space character
-          const nodeAfter = editor.view.state.selection.$to.nodeAfter;
-          const overrideSpace = nodeAfter?.text?.startsWith(" ");
-
-          if (overrideSpace) {
-            range.to += 1;
-          }
-
-          editor
-            .chain()
-            .focus()
-            .insertContentAt(range, [
-              {
-                type: this.name,
-                attrs: props,
-              },
-              {
-                type: "text",
-                text: " ",
-              },
-            ])
-            .run();
-
-          window.getSelection()?.collapseToEnd();
+          props.command({ editor, range });
         },
 
         allow: ({ state, range }) => {
@@ -52,44 +29,6 @@ const StumentSlashmenu = Mention.extend({
         },
       },
     };
-  },
-
-  group: "inline",
-
-  inline: true,
-
-  selectable: false,
-
-  atom: true,
-
-  parseHTML() {
-    return [
-      {
-        tag: `hover-card[data-type="${this.name}"]`,
-      },
-    ];
-  },
-
-  renderHTML({ node, HTMLAttributes }) {
-    return [
-      "hover-card",
-      mergeAttributes(
-        { "data-type": this.name },
-        this.options.HTMLAttributes,
-        HTMLAttributes
-      ),
-      this.options.renderLabel({
-        options: this.options,
-        node,
-      }),
-    ];
-  },
-
-  renderText({ node }) {
-    return this.options.renderLabel({
-      options: this.options,
-      node,
-    });
   },
 
   addKeyboardShortcuts() {
@@ -132,4 +71,4 @@ const StumentSlashmenu = Mention.extend({
   },
 });
 
-export default StumentSlashmenu;
+export default StumentSlashMenu;

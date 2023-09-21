@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PluginKey } from "@tiptap/pm/state";
 import Suggestion, { SuggestionOptions } from "@tiptap/suggestion";
-import { Node } from "@tiptap/core";
+import { Mention } from "@tiptap/extension-mention";
 
 export interface StumentSlashMenu {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -8,7 +9,7 @@ export interface StumentSlashMenu {
   suggestion: Omit<SuggestionOptions, "editor">;
 }
 
-const StumentSlashMenu = Node.create<StumentSlashMenu>({
+const StumentSlashMenuExtension = Mention.extend<StumentSlashMenu>({
   name: "slash-menu",
 
   addOptions() {
@@ -17,11 +18,11 @@ const StumentSlashMenu = Node.create<StumentSlashMenu>({
       suggestion: {
         char: "/",
         pluginKey: new PluginKey("slash-menu"),
-        command: ({ editor, range, props }) => {
+        command: ({ editor, range, props }: any) => {
           props.command({ editor, range });
         },
 
-        allow: ({ state, range }) => {
+        allow: ({ state, range }: any) => {
           const $from = state.doc.resolve(range.from);
           const type = state.schema.nodes[this.name];
           const allow = !!$from.parent.type.contentMatch.matchType(type);
@@ -44,18 +45,22 @@ const StumentSlashMenu = Node.create<StumentSlashMenu>({
             return false;
           }
 
-          state.doc.nodesBetween(anchor - 1, anchor, (node, pos) => {
-            if (node.type.name === this.name) {
-              isMention = true;
-              tr.insertText(
-                this.options.suggestion.char || "",
-                pos,
-                pos + node.nodeSize
-              );
+          state.doc.nodesBetween(
+            anchor - 1,
+            anchor,
+            (node: any, pos: number) => {
+              if (node.type.name === this.name) {
+                isMention = true;
+                tr.insertText(
+                  this.options.suggestion.char || "",
+                  pos,
+                  pos + node.nodeSize
+                );
 
-              return false;
+                return false;
+              }
             }
-          });
+          );
 
           return isMention;
         }),
@@ -72,4 +77,4 @@ const StumentSlashMenu = Node.create<StumentSlashMenu>({
   },
 });
 
-export default StumentSlashMenu;
+export default StumentSlashMenuExtension;

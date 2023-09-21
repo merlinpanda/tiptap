@@ -4,7 +4,6 @@ import { mergeAttributes } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
 
 import { ReactNodeViewRenderer } from "@tiptap/react";
-import React from "react";
 
 export type StumentMentionOptions = MentionOptions & {
   nodeView?: React.FC<unknown>;

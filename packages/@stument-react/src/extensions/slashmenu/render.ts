@@ -1,16 +1,16 @@
-import MentionList from "./MentionList";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactRenderer } from "@tiptap/react";
-import { Editor } from "@tiptap/core";
 import tippy from "tippy.js";
 
-export const StumentMentionRender = () => {
-  let component: ReactRenderer;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let popup: any | null = null;
+import { SlashMenuRef } from "./SlashMenuRef";
+
+const SlashMenuRender = () => {
+  let component: any;
+  let popup: any;
 
   return {
-    onStart: (props: { editor: Editor; clientRect: DOMRect }) => {
-      component = new ReactRenderer(MentionList, {
+    onStart: (props: any) => {
+      component = new ReactRenderer(SlashMenuRef, {
         props,
         editor: props.editor,
       });
@@ -19,7 +19,6 @@ export const StumentMentionRender = () => {
         return;
       }
 
-      // @ts-ignore
       popup = tippy("body", {
         getReferenceClientRect: props.clientRect,
         appendTo: () => document.body,
@@ -31,7 +30,7 @@ export const StumentMentionRender = () => {
       });
     },
 
-    onUpdate(props: { editor: Editor; clientRect: DOMRect }) {
+    onUpdate(props: any) {
       component.updateProps(props);
 
       if (!props.clientRect) {
@@ -43,20 +42,21 @@ export const StumentMentionRender = () => {
       });
     },
 
-    onKeyDown(props: { event: KeyboardEvent }) {
+    onKeyDown(props: any) {
       if (props.event.key === "Escape") {
         popup[0].hide();
 
         return true;
       }
 
-      // @ts-ignore
-      return component?.ref?.onKeyDown(props);
+      return component.ref?.onKeyDown(props);
     },
 
     onExit() {
-      popup[0].destroy();
-      component.destroy();
+      popup?.[0].destroy();
+      component?.destroy();
     },
   };
 };
+
+export default SlashMenuRender;

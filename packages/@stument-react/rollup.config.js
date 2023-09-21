@@ -5,6 +5,10 @@ import resolve from "@rollup/plugin-node-resolve";
 import autoExternal from "rollup-plugin-auto-external";
 import sourcemaps from "rollup-plugin-sourcemaps";
 import typescript from "rollup-plugin-typescript2";
+import scss from "rollup-plugin-scss";
+import postcss from "rollup-plugin-postcss";
+import autoprefixer from "autoprefixer";
+import cssnano from "cssnano";
 
 import pkg from "./package.json";
 
@@ -54,6 +58,14 @@ export default {
         },
         include: null,
       },
+    }),
+    postcss({
+      plugins: [autoprefixer(), cssnano()],
+      extract: "css/index.css",
+    }),
+    scss({
+      include: ["scss/**/*.css", "scss/**/*.scss", "scss/**/*.sass"],
+      failOnError: true,
     }),
   ],
 };

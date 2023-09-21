@@ -88,7 +88,7 @@ const MentionList = forwardRef(
     const ListRender = ({ category, items }: CategoryMentionItem) => {
       return (
         <Box>
-          <Box tt="uppercase">{category}</Box>
+          <Box>{category}</Box>
           <Box>
             {items.length &&
               items.map((item, index) => {

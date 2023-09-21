@@ -5,12 +5,14 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "dev": "yarn workspace react run dev",
     "commit": "git-cz",
     "build": "lerna run build",
     "lint": "eslint .",
     "prepare": "husky install"
   },
   "workspaces": [
+    "example/*",
     "packages/*"
   ],
   "devDependencies": {

@@ -5,6 +5,7 @@ import tippy from "tippy.js";
 
 export const render = () => {
   let component: ReactRenderer;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let popup: any | null = null;
 
   return {

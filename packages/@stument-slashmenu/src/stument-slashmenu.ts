@@ -3,6 +3,7 @@ import Suggestion, { SuggestionOptions } from "@tiptap/suggestion";
 import { Node } from "@tiptap/core";
 
 export interface StumentSlashMenu {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   HTMLAttributes: Record<string, any>;
   suggestion: Omit<SuggestionOptions, "editor">;
 }

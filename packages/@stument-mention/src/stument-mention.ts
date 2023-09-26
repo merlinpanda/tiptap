@@ -10,6 +10,25 @@ export type StumentMentionOptions = MentionOptions & {
   nodeView?: any;
 };
 
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    stumentMention: {
+      /**
+       * Set a mention
+       */
+      setMention: (attributes: {
+        code: string;
+        label: string;
+        category: string;
+      }) => ReturnType;
+      /**
+       * Unset a link mark
+       */
+      unsetMention: () => ReturnType;
+    };
+  }
+}
+
 const StumentMention = Mention.extend<StumentMentionOptions>({
   name: "stument-mention",
 
@@ -179,6 +198,23 @@ const StumentMention = Mention.extend<StumentMentionOptions>({
           };
         },
       },
+    };
+  },
+
+  addCommands() {
+    return {
+      setMention:
+        (attributes) =>
+        ({ chain }) => {
+          return chain().setMark(this.name, attributes).run();
+        },
+      unsetMention:
+        () =>
+        ({ chain }) => {
+          return chain()
+            .unsetMark(this.name, { extendEmptyMarkRange: true })
+            .run();
+        },
     };
   },
 

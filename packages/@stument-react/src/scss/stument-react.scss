@@ -10,19 +10,54 @@
 .hover-card-badge {
   font-size: var(--mantine-font-size-sm);
   border: 1px solid var(--mantine-color-slate-3);
-  color: var(--mantine-color-slate-5);
+  color: var(--mantine-color-slate-4);
+  cursor: pointer;
+}
+
+.hover-card_at-text {
+  color: var(--mantine-color-slate-4);
+  font-size: inherit;
   cursor: pointer;
 }
 
 .empty-node-placeholder::before {
-  color: var(--mantine-color-slate-3);
+  color: var(--mantine-color-slate-4);
   content: attr(data-placeholder);
   float: left;
   height: 0;
   pointer-events: none;
   font-style: italic;
-  font-weight: 300;
   letter-spacing: 1px;
+}
+
+.mention-box {
+  padding: 4px;
+  border-radius: var(--mantine-radius-sm);
+  box-shadow: var(--mantine-shadow-lg);
+  border: 1px solid var(--mantine-color-slate-light);
+  background-color: var(--mantine-color-white);
+  max-height: 500px;
+  overflow-y: scroll;
+
+  .mention-group {
+    .mention-label {
+      background-color: var(--mantine-color-slate-light);
+    }
+
+    .mention-item {
+      padding: var(--mantine-spacing-xs);
+      border-radius: var(--mantine-radius-sm);
+      color: var(--mantine-color-slate-light-color);
+      display: block;
+      width: 100%;
+    }
+
+    .mention-item:hover,
+    .mention-item-active {
+      background: var(--mantine-color-slate-light);
+      color: var(--mantine-color-slate-8);
+    }
+  }
 }
 
 .slash-menu-box {

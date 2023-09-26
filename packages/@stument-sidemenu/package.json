@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "npm run clean && rollup -c",
-    "dev": "npm run clean && rollup -c -w"
+    "build:watch": "npm run clean && rollup -c -w"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",

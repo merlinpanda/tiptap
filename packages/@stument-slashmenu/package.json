@@ -15,7 +15,8 @@
   "types": "dist/packages/@stument-slashmenu/src/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run clean && rollup -c"
+    "build": "npm run clean && rollup -c",
+    "build:watch": "npm run clean && rollup -c -w"
   },
   "files": [
     "src",

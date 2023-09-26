@@ -26,8 +26,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.vue",
-    "commitlint.config.js",
-    "postcss.config.js"
+    "commitlint.config.js"
   ],
   "exclude": ["**/node_modules", "**/dist"]
 }

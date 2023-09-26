@@ -1,4 +1,11 @@
-import { Avatar, Box, Group, ThemeIcon, UnstyledButton } from "@mantine/core";
+import {
+  Avatar,
+  Box,
+  Group,
+  Text,
+  ThemeIcon,
+  UnstyledButton,
+} from "@mantine/core";
 import {
   IconBook2,
   IconBookFilled,
@@ -32,12 +39,12 @@ export interface CategoryMentionItem {
 }
 
 export interface MentionListProps {
-  categories: CategoryMentionItem[];
+  items: CategoryMentionItem[];
   command: (item: MentionItem) => void;
 }
 
 const MentionListRef = forwardRef(
-  ({ categories, command }: MentionListProps, ref) => {
+  ({ items, command }: MentionListProps, ref) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [indexItems, setIndexItems] = useState<Map<string, MentionItem>>(
       new Map()
@@ -49,7 +56,7 @@ const MentionListRef = forwardRef(
     };
 
     const updateIndexes = (value: string) => {
-      setIndexes((map) => [value, ...map]);
+      setIndexes((map) => [...map, value]);
     };
 
     const clearMap = () => {
@@ -60,21 +67,20 @@ const MentionListRef = forwardRef(
       clearMap();
       setIndexes([]);
 
-      categories &&
-        categories.forEach((category) => {
-          const items = category.items;
-          items.forEach((item) => {
+      items &&
+        items.forEach((category) => {
+          const category_items = category.items;
+          category_items.forEach((item) => {
             const key = getItemkey(item.category, item.code);
             updateIndexes(key);
             updateMap(key, item);
           });
         });
       setSelectedIndex(0);
-    }, [categories]);
+    }, [items]);
 
     const selectItem = (key: string) => {
       const item = indexItems.get(key);
-
       if (item) {
         command(item);
       }
@@ -98,8 +104,8 @@ const MentionListRef = forwardRef(
 
     const ListRender = ({ category, items }: CategoryMentionItem) => {
       return (
-        <Box>
-          <Box>{category}</Box>
+        <Box className="mention-group">
+          <Box className="mention-label">{category}</Box>
           <Box>
             {items.length &&
               items.map((item, index) => {
@@ -110,8 +116,8 @@ const MentionListRef = forwardRef(
                     key={index}
                     custonClassName={
                       indexes.indexOf(key) === selectedIndex
-                        ? "slash-menu-item slash-menu-item-active"
-                        : "slash-menu-item"
+                        ? "mention-item mention-item-active"
+                        : "mention-item"
                     }
                     onClick={() => selectItem(key)}
                   />
@@ -125,13 +131,14 @@ const MentionListRef = forwardRef(
     const Item = ({
       item,
       custonClassName,
+      onClick,
     }: {
       item: MentionItem;
       custonClassName: string;
       onClick: () => void;
     }) => {
       return (
-        <UnstyledButton className={custonClassName}>
+        <UnstyledButton className={custonClassName} onClick={onClick}>
           <Group gap="xs">
             {item.category === "article" && (
               <ThemeIcon color="slate" variant="light">
@@ -159,9 +166,11 @@ const MentionListRef = forwardRef(
               </ThemeIcon>
             )}
             {item.category === "user" && (
-              <Avatar src={item.image}>{item.label}</Avatar>
+              <Avatar src={item.image} size="xs">
+                {item.label}
+              </Avatar>
             )}
-            {item.label}
+            <Text size="sm">{item.label}</Text>
           </Group>
         </UnstyledButton>
       );
@@ -189,13 +198,13 @@ const MentionListRef = forwardRef(
     }));
 
     return (
-      <div className="items">
-        {categories?.length ? (
-          categories.map((category, index) => {
-            return <ListRender {...category} key={index} />;
+      <div className="mention-box">
+        {items?.length ? (
+          items.map((item, index) => {
+            return <ListRender {...item} key={index} />;
           })
         ) : (
-          <div className="item">No result</div>
+          <div className="mention-item">No result</div>
         )}
       </div>
     );
